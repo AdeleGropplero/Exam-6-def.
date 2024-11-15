@@ -1,4 +1,7 @@
-const url = "https://striveschool-api.herokuapp.com/api/product/";
+const id = new URLSearchParams(window.location.search).get("_id");
+const url = id
+  ? `https://striveschool-api.herokuapp.com/api/product/${id}`
+  : "https://striveschool-api.herokuapp.com/api/product/";
 const apiKey =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzM3MWU4NzhhZDEyOTAwMTU4NzZjNjAiLCJpYXQiOjE3MzE2NjU1NTMsImV4cCI6MTczMjg3NTE1M30.wWySxZitja9gHHTIOwKDsZzK8g8gvsGLVou6A092fgI";
 
@@ -59,6 +62,11 @@ const createProductCard = function (newProduct) {
   price.className = "card-text";
   price.innerText = `Price: $${newProduct.price}`;
 
+  const deleteBtn = document.createElement("button");
+  deleteBtn.className = "btn btn-danger";
+  deleteBtn.innerText = "Elimina prodotto";
+  deleteBtn.dataset.id = newProduct._id;
+
   col.appendChild(card);
   row.appendChild(col);
   card.appendChild(image);
@@ -67,6 +75,35 @@ const createProductCard = function (newProduct) {
   cardBody.appendChild(description);
   cardBody.appendChild(brand);
   cardBody.appendChild(price);
+  cardBody.appendChild(deleteBtn);
+
+  deleteBtn.onclick = (e) => {
+    const hasConfirmed = confirm("Sei sicuro di voler eliminare il prodotto?");
+
+    if (hasConfirmed) {
+      const id = e.target.dataset.id; // Recupera l'id dal data attribute
+      const URL = `https://striveschool-api.herokuapp.com/api/product/${id}`;
+
+      fetch(URL, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${apiKey}`
+        }
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error("Errore nella cancellazione");
+          }
+        })
+        .then((deletedProduct) => {
+          alert(`Prodotto eliminato`);
+          col.remove();
+        })
+        .catch((err) => console.log(err));
+    }
+  };
 };
 
 window.addEventListener("DOMContentLoaded", function () {
