@@ -34,19 +34,20 @@ const handleSubmit = (e) => {
     })
     .then((newProduct) => {
       console.log(newProduct);
+      form.reset();
     })
     .catch((error) => {
       console.error("Errore:", error);
     });
-
-  form.reset();
 };
 
 window.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("form");
-
-  form.onsubmit = handleSubmit;
-
   const saveBtn = document.getElementById("saveBtn");
   const resetBtn = document.getElementById("resetBtn");
+
+  form.onsubmit = handleSubmit;
+  resetBtn.onclick = function () {
+    form.reset();
+  };
 });
