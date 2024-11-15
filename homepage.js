@@ -67,6 +67,11 @@ const createProductCard = function (newProduct) {
   deleteBtn.innerText = "Elimina prodotto";
   deleteBtn.dataset.id = newProduct._id;
 
+  const modifyBtn = document.createElement("a");
+  modifyBtn.className = "btn btn-warning";
+  modifyBtn.innerText = "modifica";
+  /* window.location.href = `backoffice.html?id=${newProduct._id}`; */
+
   col.appendChild(card);
   row.appendChild(col);
   card.appendChild(image);
@@ -76,6 +81,7 @@ const createProductCard = function (newProduct) {
   cardBody.appendChild(brand);
   cardBody.appendChild(price);
   cardBody.appendChild(deleteBtn);
+  cardBody.appendChild(modifyBtn);
 
   deleteBtn.onclick = (e) => {
     const hasConfirmed = confirm("Sei sicuro di voler eliminare il prodotto?");
