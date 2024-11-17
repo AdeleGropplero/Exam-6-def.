@@ -1,4 +1,91 @@
-const id = new URLSearchParams(window.location.search).get("_id");
+const url = "https://striveschool-api.herokuapp.com/api/product/";
+
+const apiKey =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzM3MWU4NzhhZDEyOTAwMTU4NzZjNjAiLCJpYXQiOjE3MzE2NjU1NTMsImV4cCI6MTczMjg3NTE1M30.wWySxZitja9gHHTIOwKDsZzK8g8gvsGLVou6A092fgI";
+
+const retriveProducts = () => {
+  fetch(url, {
+    headers: {
+      Authorization: `Bearer ${apiKey}`
+    }
+  })
+    .then((response) => {
+      console.log(response);
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error(
+          "Non abbiamo recuperato i dati. Errore:",
+          response.statusText
+        );
+      }
+    })
+    .then((products) => {
+      console.log(products);
+
+      products.forEach((product) => {
+        const row = document.getElementById("card-row");
+
+        const col = document.createElement("div");
+        col.className = "col g-4 ";
+
+        const card = document.createElement("div");
+        card.className = "card h-100";
+        /* card.style */
+
+        const img = document.createElement("img");
+        img.className = "card-img-top";
+        img.src = product.imageUrl;
+        img.alt = product.name;
+
+        const cardBody = document.createElement("div");
+        cardBody.className = "card-body";
+
+        const cardTitle = document.createElement("h5");
+        cardTitle.className = "card-title";
+        cardTitle.innerText = product.name;
+
+        const brand = document.createElement("p");
+        brand.className = "card-text";
+        brand.innerText = `Brand: ${product.brand}`;
+
+        const price = document.createElement("p");
+        price.className = "card-text";
+        price.innerText = `Price: $ ${product.price}`;
+
+        const description = document.createElement("p");
+        description.className = "card-text";
+        description.innerText = product.description;
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.className = "btn btn-danger";
+        deleteBtn.innerText = "Delete";
+
+        const modifyBtn = document.createElement("a");
+        modifyBtn.className = "btn btn-secondary";
+        modifyBtn.innerText = "modifica";
+
+        row.appendChild(col);
+        col.appendChild(card);
+        card.append(img, cardBody);
+        cardBody.append(
+          cardTitle,
+          brand,
+          price,
+          description,
+          deleteBtn,
+          modifyBtn
+        );
+      });
+    })
+    .catch((err) => console.log(err));
+};
+
+window.addEventListener("DOMContentLoaded", function () {
+  retriveProducts();
+});
+
+/* const id = new URLSearchParams(window.location.search).get("_id");
 const url = id
   ? `https://striveschool-api.herokuapp.com/api/product/${id}`
   : "https://striveschool-api.herokuapp.com/api/product/";
@@ -71,7 +158,7 @@ const createProductCard = function (newProduct) {
   modifyBtn.className = "btn btn-warning";
   modifyBtn.innerText = "modifica";
   /* window.location.href = `backoffice.html?id=${newProduct._id}`; */
-
+/*  
   col.appendChild(card);
   row.appendChild(col);
   card.appendChild(image);
@@ -115,3 +202,4 @@ const createProductCard = function (newProduct) {
 window.addEventListener("DOMContentLoaded", function () {
   getProductFromApi();
 });
+ */

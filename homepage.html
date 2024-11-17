@@ -37,14 +37,14 @@
           >AZON</a
         >
         <a class="nav-link text-white fs-6 me-3" href="./backoffice.html"
-          >Backoffice</a
+          >Vai al Backoffice</a
         >
       </div>
     </nav>
 
     <header>
       <!-- TITOLO PAGINA -->
-      <div class="container my-5 p-5">
+      <div class="container my-5 pt-5">
         <h1 class="text-white text-center mb-5 fw-semibold">
           I tuoi prodotti:
         </h1>
@@ -56,6 +56,29 @@
     <div id="cardsContainer" class="container">
       <div class="row" id="cardsRow">
         <!-- le cards verranno generate qui-->
+        <div class="container mt-4" id="card-container">
+          <div
+            class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6"
+            id="card-row"
+          >
+            <div class="col g-4">
+              <div class="card">
+                <img src="..." class="card-img-top" alt="..." />
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="brand">Brand</p>
+                  <p class="price">Price</p>
+                  <p class="card-text">
+                    Some quick example text to build on the card title and make
+                    up the bulk of the card's content.
+                  </p>
+                  <button class="btn btn-danger">Delete</button>
+                  <a href="#" class="btn btn-primary">Modify</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <script
