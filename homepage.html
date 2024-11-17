@@ -53,34 +53,15 @@
     </header>
 
     <!--QUI DENTRO GENEREREMO DINAMICAMENTE LE CARD-->
-    <div id="cardsContainer" class="container">
-      <div class="row" id="cardsRow">
+    <div class="container mt-4" id="card-container">
+      <div
+        class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6"
+        id="card-row"
+      >
         <!-- le cards verranno generate qui-->
-        <div class="container mt-4" id="card-container">
-          <div
-            class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6"
-            id="card-row"
-          >
-            <div class="col g-4">
-              <div class="card">
-                <img src="..." class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="brand">Brand</p>
-                  <p class="price">Price</p>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                  <button class="btn btn-danger">Delete</button>
-                  <a href="#" class="btn btn-primary">Modify</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

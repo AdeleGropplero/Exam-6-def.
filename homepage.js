@@ -31,7 +31,9 @@ const retriveProducts = () => {
 
         const card = document.createElement("div");
         card.className = "card h-100";
-        /* card.style */
+
+        const linkDetails = document.createElement("a");
+        linkDetails.href = `./details.html?id=${product._id}`;
 
         const img = document.createElement("img");
         img.className = "card-img-top";
@@ -64,10 +66,12 @@ const retriveProducts = () => {
         const modifyBtn = document.createElement("a");
         modifyBtn.className = "btn btn-secondary";
         modifyBtn.innerText = "modifica";
+        /* modifyBtn.dataset.id = product._id; */
 
         row.appendChild(col);
         col.appendChild(card);
-        card.append(img, cardBody);
+        card.append(linkDetails, cardBody);
+        linkDetails.appendChild(img);
         cardBody.append(
           cardTitle,
           brand,
@@ -76,6 +80,40 @@ const retriveProducts = () => {
           deleteBtn,
           modifyBtn
         );
+
+        modifyBtn.onclick = () => {
+          console.log(product._id);
+          modifyBtn.href = `./backoffice.html?id=${product._id}`;
+        };
+
+        deleteBtn.onclick = (e) => {
+          const hasConfirmed = confirm(
+            "Sei sicuro di voler eliminare il prodotto?"
+          );
+
+          if (hasConfirmed) {
+            const URL = `https://striveschool-api.herokuapp.com/api/product/${product._id}`;
+
+            fetch(URL, {
+              method: "DELETE",
+              headers: {
+                Authorization: `Bearer ${apiKey}`
+              }
+            })
+              .then((response) => {
+                if (response.ok) {
+                  return response.json();
+                } else {
+                  throw new Error("Errore nella cancellazione");
+                }
+              })
+              .then((deletedProduct) => {
+                alert(`Prodotto eliminato`);
+                col.remove();
+              })
+              .catch((err) => console.log(err));
+          }
+        };
       });
     })
     .catch((err) => console.log(err));
